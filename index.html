@@ -3,205 +3,917 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shutting Down Soon</title>
+    <title>CSE 2022-2025 Farewell - ANU Bose Institute of Technology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background-color: #000;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap');
+        
+        :root {
+            --primary: #764ba2;
+            --secondary: #667eea;
+            --accent: #ffcc70;
+            --text: #ffffff;
+            --bg: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+        
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .user-info {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            font-size: 0.9rem;
+            z-index: 100;
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
+            gap: 10px;
         }
         
-        .container {
-            text-align: center;
-            position: relative;
+        .user-info i { color: var(--accent); }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
         
-        .neon-text {
-            color: #ff0000;
-            text-shadow: 0 0 10px #ff0000, 
-                         0 0 20px #ff0000, 
-                         0 0 30px #ff0000, 
-                         0 0 40px #ff0000;
-            font-size: 5rem;
-            font-weight: bold;
-            letter-spacing: 5px;
-            animation: flicker 1.5s infinite alternate;
-        }
-        
-        .subtext {
-            color: #ff3333;
-            text-shadow: 0 0 5px #ff3333, 
-                         0 0 10px #ff3333;
-            font-size: 1.8rem;
-            margin-top: 30px;
-            animation: pulse 2s infinite;
-        }
-        
-        .glow-line {
-            width: 100%;
-            height: 3px;
-            background: #ff0000;
-            box-shadow: 0 0 10px #ff0000, 
-                        0 0 20px #ff0000;
-            margin: 40px 0;
-            animation: glow-pulse 3s infinite;
-        }
-        
-        @keyframes flicker {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-                text-shadow: 0 0 10px #ff0000, 
-                             0 0 20px #ff0000, 
-                             0 0 30px #ff0000, 
-                             0 0 40px #ff0000;
-            }
-            20%, 24%, 55% {
-                text-shadow: none;
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.7;
-            }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
-        @keyframes glow-pulse {
-            0%, 100% {
-                opacity: 0.8;
-                box-shadow: 0 0 10px #ff0000, 
-                            0 0 20px #ff0000;
-            }
-            50% {
-                opacity: 1;
-                box-shadow: 0 0 15px #ff0000, 
-                            0 0 30px #ff0000, 
-                            0 0 45px #ff0000;
-            }
-        }
-        
-        .corner {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            border: 3px solid #ff0000;
-            box-shadow: 0 0 10px #ff0000, 
-                        inset 0 0 10px #ff0000;
-            opacity: 0.7;
-        }
-        
-        .top-left {
-            top: 20px;
-            left: 20px;
-            border-right: none;
-            border-bottom: none;
-        }
-        
-        .top-right {
-            top: 20px;
-            right: 20px;
-            border-left: none;
-            border-bottom: none;
-        }
-        
-        .bottom-left {
-            bottom: 20px;
-            left: 20px;
-            border-right: none;
-            border-top: none;
-        }
-        
-        .bottom-right {
-            bottom: 20px;
-            right: 20px;
-            border-left: none;
-            border-top: none;
-        }
-        
-        .particles {
-            position: absolute;
+        .popup-overlay {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
         
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #ff0000;
+        .popup-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .popup-box h2 {
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .popup-box input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .popup-box button {
+            padding: 12px 30px;
+            background: var(--accent);
+            color: #333;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-box button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg);
+            z-index: 999;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .welcome-content {
+            text-align: center;
+            animation: fadeIn 1s ease, pulse 2s ease-in-out infinite;
+        }
+        
+        .welcome-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .welcome-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .group-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .group-title {
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .batch-info {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        .college-badge {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            box-shadow: 0 0 5px #ff0000, 
-                        0 0 10px #ff0000;
-            animation: float linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: pulse 3s ease-in-out infinite;
         }
         
-        @keyframes float {
-            to {
-                transform: translateY(-100vh);
+        .college-badge i {
+            font-size: 3.5rem;
+            color: var(--text);
+        }
+        
+        .timer-section {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            transition: all 0.5s ease;
+        }
+        
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .timer-unit {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 80px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .timer-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .timer-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .countdown-complete {
+            font-size: 2rem;
+            color: var(--accent);
+            margin: 30px 0;
+            display: none;
+            animation: fadeIn 1s ease, pulse 2s infinite;
+        }
+        
+        .content-after-countdown {
+            display: none;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .music-controls:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .music-controls i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .print-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .print-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .print-btn i {
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            text-align: center;
+            display: none;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 30px;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-btn:hover, .tab-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.8s ease;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .group-memories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .group-photo {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            animation: float 6s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.5s);
+        }
+        
+        .group-photo:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+        
+        .group-photo img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .group-photo:hover img {
+            transform: scale(1.1);
+        }
+        
+        .photo-caption {
+            padding: 10px;
+            background: rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        
+        .about-content {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .about-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .about-section h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .batchmates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .batchmate-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .batchmate-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .batchmate-card i {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .social-links a {
+            color: var(--text);
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .quote {
+            font-style: italic;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            margin-top: 20px;
+            color: var(--accent);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .target-date {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
             }
+            
+            .container {
+                max-width: 100%;
+                padding: 10px;
+            }
+            
+            .music-controls, .print-btn, .user-info, .popup-overlay {
+                display: none !important;
+            }
+            
+            .tab-content {
+                display: block !important;
+                background: white !important;
+                box-shadow: none !important;
+                page-break-after: always;
+            }
+            
+            .group-photo, .batchmate-card {
+                page-break-inside: avoid;
+            }
+            
+            .timer-section, .footer {
+                page-break-before: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            .group-title { font-size: 2rem; }
+            .batch-info { font-size: 1.1rem; }
+            .group-memories { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+            .group-photo img { height: 150px; }
+            .tab-content { padding: 20px; }
+            .timer { flex-wrap: wrap; }
+            .timer-unit { min-width: 70px; }
+            .user-info { top: 10px; right: 10px; font-size: 0.8rem; padding: 5px 10px; }
+            .batchmates-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
         }
     </style>
 </head>
 <body>
-    <div class="particles" id="particles"></div>
-    
-    <div class="corner top-left"></div>
-    <div class="corner top-right"></div>
-    <div class="corner bottom-left"></div>
-    <div class="corner bottom-right"></div>
-    
-    <div class="container">
-        <h1 class="neon-text">SHUTTING DOWN SOON</h1>
-        <div class="glow-line"></div>
-        <p class="subtext">This site is shouting down because of owners decision</p>
-        <p class="subtext">sry for intrupting</p>
-    </div>
+    <!-- Audio Element (hidden) -->
+    <audio id="backgroundMusic" loop style="display:none;">
+        <source src="ARIJIT SINGH Woh Din Lyrical Chhichhore Sushant Shraddha Pritam Amitabh.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-    <script>
-        // Create floating particles
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 50;
+    <!-- Music Control -->
+    <div class="music-controls" id="musicToggle">
+        <i class="fas fa-music"></i>
+    </div>
+    
+    <!-- Print Button -->
+    <div class="print-btn" id="printBtn" title="Print this page">
+        <i class="fas fa-print"></i>
+    </div>
+    
+    <!-- User Info Display -->
+    <div class="user-info" id="userInfo" style="display: none;">
+        <i class="fas fa-user"></i>
+        <span id="loggedInName"></span>
+    </div>
+    
+    <!-- Name Entry Popup -->
+    <div class="popup-overlay" id="namePopup">
+        <div class="popup-box">
+            <h2>Welcome to Our Farewell Page</h2>
+            <p>Please enter your name to continue:</p>
+            <input type="text" id="userName" placeholder="Your Name">
+            <button onclick="saveName()">Continue</button>
+        </div>
+    </div>
+    
+    <!-- Welcome Animation -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-content">
+            <h1>Welcome, <span id="displayName"></span>!</h1>
+            <p>Thank you for visiting our batch farewell page</p>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="container" id="mainContent">
+        <div class="group-header">
+            <h1 class="group-title">Until We Meet Again</h1>
+            <div class="college-badge">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="college-name">ANU Bose Institute of Technology</div>
+            <div class="batch-info">Computer Science & Engineering 2022-2025</div>
+            <p id="countdownMessage">Counting down to our special farewell day<span style="color: greenyellow;">(kochum sep aggandi saar)</span></p>
+            <div class="target-date" id="targetDateDisplay">Farewell on May 2, 2025 at 11:45 AM</div>
+        </div>
         
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
+        <!-- Timer Section -->
+        <div class="timer-section" id="timerSection">
+            <div class="timer" id="countdown">
+                <div class="timer-unit">
+                    <div class="timer-value" id="days">00</div>
+                    <div class="timer-label">Days</div>
+                </div>
+                <div class="timer-unit">
+                    <div class="timer-value" id="hours">00</div>
+                    <div class="timer-label">Hours</div>
+                </div>
+                <div class="timer-unit">
+                    <div class="timer-value" id="minutes">00</div>
+                    <div class="timer-label">Minutes</div>
+                </div>
+                <div class="timer-unit">
+                    <div class="timer-value" id="seconds">00</div>
+                    <div class="timer-label">Seconds</div>
+                </div>
+            </div>
+            <div class="countdown-complete" id="countdownComplete">
+                The wait is over! Here's our farewell message...
+            </div>
+        </div>
+        
+        <!-- Content that appears after countdown -->
+        <div class="content-after-countdown" id="farewellContent">
+            <!-- Tabs Navigation -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab('memories')">
+                    <i class="fas fa-images"></i> Memories
+                </button>
+                <button class="tab-btn" onclick="openTab('about')">
+                    <i class="fas fa-users"></i> Our Batch
+                </button>
+                <button class="tab-btn" onclick="openTab('batchmates')">
+                    <i class="fas fa-list"></i> Batchmates
+                </button>
+            </div>
             
-            // Random position
-            const posX = Math.random() * 100;
-            const posY = Math.random() * 100;
-            particle.style.left = `${posX}%`;
-            particle.style.top = `${posY}%`;
+            <!-- Memories Tab -->
+            <div id="memories" class="tab-content active">
+                <h2>Our Shared Journey</h2>
+                <p> memories will stay with us forever</p>
+                
+                <div class="group-memories">
+                    <div class="group-photo" style="--i: 0">
+                        <img src="IMG-20250423-WA0002.jpg">
+                        <div class="photo-caption">Classroom Days</div>
+                    </div>
+                    <div class="group-photo" style="--i: 1">
+                        <img src="IMG-20250423-WA0001.jpg">
+                        <div class="photo-caption">Friends Forever</div>
+                    </div>
+                    <div class="group-photo" style="--i: 2">
+                        <img src="IMG-20250423-WA0003.jpg" alt="College Fest">
+                        <div class="photo-caption">College Fest(adagaddhu)</div>
+                    </div>
+                    <div class="group-photo" style="--i: 3">
+                        <img src="IMG-20250423-WA0004.jpg" alt="Lab Sessions">
+                        <div class="photo-caption">Lab Sessions(naktheeled amma)</div>
+                    </div>
+                    <div class="group-photo" style="--i: 4">
+                        <img src="IMG-20250423-WA0005.jpg" alt="College Trip">
+                        <div class="photo-caption">College Trip(adhi okatee thakkuva)</div>
+                    </div>
+                    <div class="group-photo" style="--i: 5">
+                        <img src="IMG-20250423-WA0006.jpg" alt="Celebrations">
+                        <div class="photo-caption">Celebrations(adhi okatee migilindii)</div>
+                    </div>
+                    </div>
+                    <p>sry guys naa deggara ee photos mathramee oonaii🤓🤓</p>
+                
+            </div>
             
-            // Random size
-            const size = Math.random() * 3 + 1;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
+            <!-- About Our Batch Tab -->
+            <div id="about" class="tab-content">
+                <div class="about-content">
+                    <div class="about-section">
+                        <h3><i class="fas fa-user-graduate"></i> Our Journey at ANU Bose</h3>
+                        <p>We are the Computer Science & Engineering 2022-2025 batch of ANU Bose Institute of Technology. These years have been transformative, filled with learning(dihini gurinchi adgadhuu), growth, and unforgettable friendships.</p>
+                        <p>From those nervous first days to becoming confident professionals, we've grown together through coding marathons, college fests, and late-night study sessions. Our batch has seen it all - the challenges, the triumphs, and everything in between.</p>
+                        <p>antha banne oondi gaani fan lu endhuku oocheraa</p>
+                    </div>
+                    
+                    <div class="about-section">
+                        <h3><i class="fas fa-heart"></i> What Makes Us Special</h3>
+                        <ul>
+                            <li><strong>Diverse Talents:</strong> From artists, entrepreneurs to researchers</li>
+                            <li><strong>Achievements:</strong>innovations,scholdings</li>
+                            <li><strong>Unity:</strong> Supporting each other through thick and agin scholdings </li>
+                            <li><strong>Legacy:</strong> Setting benchmarks for future batches</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="about-section">
+                        <h3><i class="fas fa-rocket"></i> Moving Forward</h3>
+                        <p>As we scatter to different corners of the world - some to higher studies, some to jobs, some to pursue entrepreneurial dreams - we carry with us the bonds forged in these hallowed halls.</p>
+                        <p>This is not goodbye, but rather "see you later" - because no matter where life takes us, we'll always be the CSE 2022-2025 batch of ANU Bose.</p>
+                    </div>
+                </div>
+            </div>
             
-            // Random opacity
-            const opacity = Math.random() * 0.5 + 0.3;
-            particle.style.opacity = opacity;
+            <!-- Batchmates Tab -->
+            <div id="batchmates" class="tab-content">
+                <h2>Our Wonderful(jathirathnalu) Batchmates</h2>
+                <p>These are the amazing people who made our college journey memorable</p>
+                
+                <div class="batchmates-grid">
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>1. Jeshwanth(tooper mawa#1)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>2. Ritvik(the kopist)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>3. Kadheer (chunchu nyala)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>4. Yogi(doolagadu)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>5. Lalith(rich kid)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>6. Buvan(kandaloodu)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>7. Umar(doolagadu)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>8. Siddiq(eeeeew CR)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>9. Hemanth(doolagadu#1)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>10. Siddhu(vammo kodathadu nen cheppanu)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>11. Abhi(Modaaaal)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>12. Pavan Kalyan(coder)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>14. Praveen(sloth)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>15. Vishnu(egoist)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>16. Anwesh(no body knows)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>17. Santhu(nakee thelledhu)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>18. Azam(actor ra mama nuvu)</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>19. Banu(donga)</h3></div>
+                    <p>girls goorinchi nanu adkandi nak theeliduu</p>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>20. Amreen</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>21. Samskruthi</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>22. Sindhu</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>23. Priya</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>24. Likitha</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>25. Sushmitha</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>26. Manasa</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>27. Peatshusha</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>28. Pavani</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>29. Richitha</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>30. Sanjana</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>31. Santhu</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>32. Sravya</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>33. Azam</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>34. Banu</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>35. Akhil</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>36. Druthi</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>37. Farheen</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>38. Gagana</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>39. Peasanna</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>40. Sravanthi</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>41. Priyanka</h3></div>
+                    <div class="batchmate-card"><i class="fas fa-user-graduate"></i><h3>42. sravya</h3></div>
+                </div>
+            </div>
             
-            // Random animation duration
-            const duration = Math.random() * 10 + 5;
-            particle.style.animationDuration = `${duration}s`;
-            
-            // Random delay
-            const delay = Math.random() * 5;
-            particle.style.animationDelay = `${delay}s`;
-            
-            particlesContainer.appendChild(particle);
+            <!-- Footer -->
+            <div class="footer">
+                <div class="social-links">
+                    <a href="#" title="Batch Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Batch WhatsApp Group"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" title="College Website"><i class="fas fa-globe"></i></a>
+                    <a href="#" title="Contact Class Rep"><i class="fas fa-envelope"></i></a>
+                </div>
+                <p style="color: darkred;">meeru entha try cheesina ivvi panichyav link pettadaniki badhakam oochindi</p>
+                
+                <p class="quote">"The strength of the team is each individual member. The strength of each member is the team." - Phil Jackson <br />aa bokkale inthaki adhi google ne adegithe oidi icchindi😅</p>
+                <p>marchi pokinda ela oodo msg cheyandi naaku</p>
+                <p class="signature">CSE 2022-2025(first cse diploma in abit) aka waste batch <a href=""></a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    // Audio Elements
+    const bgMusic = document.getElementById('backgroundMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const printBtn = document.getElementById('printBtn');
+    
+    // Set initial volume (30%)
+    bgMusic.volume = 0.3;
+    let isMusicPlaying = false;
+
+    // Music toggle functionality
+    musicToggle.addEventListener('click', function() {
+        if (isMusicPlaying) {
+            bgMusic.pause();
+            this.innerHTML = '<i class="fas fa-music"></i>';
+        } else {
+            bgMusic.play();
+            this.innerHTML = '<i class="fas fa-pause"></i>';
         }
-    </script>
+        isMusicPlaying = !isMusicPlaying;
+    });
+
+    // Print functionality
+    printBtn.addEventListener('click', function() {
+        window.print();
+    });
+
+    // Auto-play music when page loads
+    window.addEventListener('load', function() {
+        // Many browsers block autoplay, so we need to handle this carefully
+        const playPromise = bgMusic.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                // Automatic playback started
+                isMusicPlaying = true;
+                musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+            })
+            .catch(error => {
+                // Auto-play was prevented
+                console.log("Auto-play prevented, showing play button");
+                musicToggle.style.display = 'flex';
+            });
+        }
+    });
+    
+    // Name Entry Functionality
+    function saveName() {
+        const userName = document.getElementById('userName').value.trim();
+        if (userName === '') {
+            alert('Please enter your name');
+            return;
+        }
+        
+        localStorage.setItem('farewellUserName', userName);
+        document.getElementById('namePopup').style.display = 'none';
+        document.getElementById('displayName').textContent = userName;
+        document.getElementById('welcomeScreen').style.display = 'flex';
+        document.getElementById('loggedInName').textContent = userName;
+        document.getElementById('userInfo').style.display = 'flex';
+        
+        setTimeout(() => {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            startCountdown();
+        }, 3000);
+    }
+    
+    // Check if name already exists
+    window.onload = function() {
+        const savedName = localStorage.getItem('farewellUserName');
+        if (savedName) {
+            document.getElementById('namePopup').style.display = 'none';
+            document.getElementById('displayName').textContent = savedName;
+            document.getElementById('welcomeScreen').style.display = 'flex';
+            document.getElementById('loggedInName').textContent = savedName;
+            document.getElementById('userInfo').style.display = 'flex';
+            
+            setTimeout(() => {
+                document.getElementById('welcomeScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                startCountdown();
+            }, 3000);
+        }
+        
+        // Try to play music again when user interacts with the page
+        document.body.addEventListener('click', function initAudio() {
+            bgMusic.play().then(() => {
+                isMusicPlaying = true;
+                musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+            }).catch(e => {
+                console.log("Auto-play prevented:", e);
+            });
+            document.body.removeEventListener('click', initAudio);
+        }, { once: true });
+    }
+    
+    // Countdown Timer
+    function startCountdown() {
+        const targetDate = new Date('may 2, 2025 11:45:00').getTime();
+        const countdownComplete = document.getElementById('countdownComplete');
+        const farewellContent = document.getElementById('farewellContent');
+        const timerSection = document.getElementById('timerSection');
+        const countdownMessage = document.getElementById('countdownMessage');
+
+        const updateTimer = () => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            if (distance < 0) {
+                document.getElementById('countdown').style.display = 'none';
+                countdownComplete.style.display = 'block';
+                farewellContent.style.display = 'block';
+                countdownMessage.textContent = "Thank you for being part of our journey";
+                timerSection.style.margin = "20px 0";
+                musicToggle.style.display = 'flex';
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        };
+        
+        if (new Date() >= new Date('May 2, 2025 11:45:00')) {
+            document.getElementById('countdown').style.display = 'none';
+            countdownComplete.style.display = 'block';
+            farewellContent.style.display = 'block';
+            countdownMessage.textContent = "Thank you for being part of our journey";
+            timerSection.style.margin = "20px 0";
+            musicToggle.style.display = 'flex';
+        } else {
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+    }
+
+    // Tab Switching Function
+    function openTab(tabName) {
+        const tabContents = document.getElementsByClassName('tab-content');
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove('active');
+        }
+        
+        const tabBtns = document.getElementsByClassName('tab-btn');
+        for (let i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].classList.remove('active');
+        }
+        
+        document.getElementById(tabName).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+    
+    // Initialize animations
+    document.addEventListener('DOMContentLoaded', function() {
+        const memoryItems = document.querySelectorAll('.group-photo');
+        memoryItems.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.2}s`;
+        });
+    });
+</script>
 </body>
-</html>
+        </html>
